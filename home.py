@@ -72,7 +72,7 @@ elif menu == "Login":
             st.success("Login Successful!")
             
             time.sleep(1)
-            st.switch_page("pages/dashboard")
+            st.switch_page("pages/dashboard.py")
           
             
         
