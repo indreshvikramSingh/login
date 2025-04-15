@@ -33,6 +33,25 @@ if st.sidebar.button(" Logout"):
 
 
 
+data_source = st.radio("Choose Data Source:", ["SD Card", "Upload CSV"])
+
+df = None
+
+if data_source == "SD Card":
+    sd_card_path = "E:/data.csv"  # change path as per actual SD card file
+
+    if os.path.exists(sd_card_path):
+        df = pd.read_csv(sd_card_path, header=None)
+        st.success("✅ Data loaded from SD card!")
+    else:
+        st.error("❌ SD card or file not found!")
+
+elif data_source == "Upload CSV":
+
+
+
+
+
 
 uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
 if uploaded_file is not None:
