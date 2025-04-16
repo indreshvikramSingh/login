@@ -29,10 +29,25 @@
 #     st.session_state.role = "user"
 #     st.success("You have been logged out.")
 #     st.experimental_rerun()
-    
-    
-    
-    
+
+
+
+
+# data_source = st.radio("Choose Data Source:", ["SD Card", "Upload CSV"])
+
+# df = None
+
+# if data_source == "SD Card":
+#     sd_card_path = "E:/data.csv"  # change path as per actual SD card file
+
+#     if os.path.exists(sd_card_path):
+#         df = pd.read_csv(sd_card_path, header=None)
+#         st.success("✅ Data loaded from SD card!")
+#     else:
+#         st.error("❌ SD card or file not found!")
+
+# elif data_source == "Upload CSV":
+
 
 
 
@@ -60,7 +75,10 @@
 
 #     st.plotly_chart(fig, use_container_width=True)
 
-    
+
+
+
+
 #     img_bytes = fig.to_image(format="png", engine="kaleido")
 #     st.download_button(" Download Graph Report", data=img_bytes, file_name="health_report.png", mime="image/png")
 
@@ -68,244 +86,12 @@
 
 
 
-# import streamlit as st
-# import pandas as pd
-# import os
-# from plotly.subplots import make_subplots
-# import plotly.graph_objs as go
 
-# st.set_page_config(page_title="Dashboard")
 
-# if "logged_in" not in st.session_state or not st.session_state.logged_in:
-#     st.error("Please login to access the dashboard.")
-#     st.stop()
 
-# st.sidebar.markdown("---")
-# st.sidebar.write(f"Logged in as: `{st.session_state.username}`")
 
-# if st.sidebar.button("Logout"):
-#     st.session_state.logged_in = False
-#     st.session_state.username = ""
-#     st.session_state.role = "user"
-#     st.success("You have been logged out.")
-#     st.experimental_rerun()
 
-# # -------------------------------------------
-# #  Data Source Selector
-# # -------------------------------------------
 
-# st.subheader(" Health Report Data Source")
-
-# data_source = st.radio("Choose Data Source:", ["SD Card", "Upload CSV"])
-
-# df = None
-
-# print("SD_CARD")
-# print("CWD", os.getcwd())
-
-# if data_source == "SD Card":
-#     sd_card_path = "E:/data.csv"
-#     # print("SD", sd_card_path)
-    
-#     # change path as per actual SD card file
-    
-#     # print(os.path.exists("E:/data.csv"))
-    
-    
-#     if os.path.exists(sd_card_path):    
-#         df = pd.read_csv(sd_card_path, header=None)
-#         st.success( "Data loaded from SD card!")
-#     else:
-#         st.error(" SD card or file not found!")
-
-# elif data_source == "Upload CSV":
-#     uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
-#     if uploaded_file is not None:
-#         df = pd.read_csv(uploaded_file, header=None)
-#         st.success(" CSV uploaded successfully!")
-
-# # -------------------------------------------
-# #  Show Graph if Data Loaded
-# # -------------------------------------------
-
-# if df is not None:
-#     df.columns = ["Time", "Breath Trend", "SpO2 Info 1", "SpO2 Info 2", "Body Position", "Pulse Info", "Dummy1", "Dummy2", "Dummy3", "Dummy4"]
-
-#     fig = make_subplots(
-#         rows=5, cols=1,
-#         shared_xaxes=True,
-#         subplot_titles=("Breath Trend", "SpO2 Info 1", "SpO2 Info 2", "Body Position", "Pulse Info")
-#     )
-
-#     fig.add_trace(go.Scatter(x=df['Time'], y=df['Breath Trend']), row=1, col=1)
-#     fig.add_trace(go.Scatter(x=df['Time'], y=df['SpO2 Info 1']), row=2, col=1)
-#     fig.add_trace(go.Scatter(x=df['Time'], y=df['SpO2 Info 2']), row=3, col=1)
-#     fig.add_trace(go.Scatter(x=df['Time'], y=df['Body Position']), row=4, col=1)
-#     fig.add_trace(go.Scatter(x=df['Time'], y=df['Pulse Info']), row=5, col=1)
-
-#     fig.update_layout(height=1200, width=800, title_text="Health Report: Combined Graph", showlegend=False)
-
-#     st.plotly_chart(fig, use_container_width=True)
-
-#     # Optional Download
-#     img_bytes = fig.to_image(format="png", engine="kaleido")
-#     st.download_button("Download Graph Report", data=img_bytes, file_name="health_report.png", mime="image/png")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# import streamlit as st
-# import pandas as pd
-# import os
-# from plotly.subplots import make_subplots
-# import plotly.graph_objs as go
-# import psutil
-
-
-
-# st.set_page_config(page_title="Dashboard")
-
-# if "logged_in" not in st.session_state or not st.session_state.logged_in:
-#     st.error("Please login to access the dashboard.")
-#     st.stop()
-
-# st.sidebar.markdown("---")
-# st.sidebar.write(f"Logged in as: `{st.session_state.username}`")
-
-# if st.sidebar.button("Logout"):
-#     st.session_state.logged_in = False
-#     st.session_state.username = ""
-#     st.session_state.role = "user"
-#     st.success("You have been logged out.")
-#     st.experimental_rerun()
-
-# # -------------------------------------------
-# # Step 1: Show Import Button
-# # -------------------------------------------
-# st.subheader(" Import Health Report Data")
-
-# if "import_clicked" not in st.session_state:
-#     st.session_state.import_clicked = False
-
-# if not st.session_state.import_clicked:
-#     if st.button(" Import"):
-#         st.session_state.import_clicked = True
-#     st.stop()
-
-# # -------------------------------------------
-# # Step 2: Choose Source after Import
-# # -------------------------------------------
-
-# # data_source = st.radio("Choose Data Source:", ["CSV file", "SD Card"])
-# data_source = st.radio("Choose Data Source:", ["Upload CSV", "SD Card"])
-
-
-# df = None
-
-# # Upload CSV Option
-# # if data_source == "Upload CSV":
-# #     uploaded_file = st.file_uploader("  Browse your CSV file", type=["csv"], key="upload_csv")
-# #     if uploaded_file is not None:
-# #         df = pd.read_csv(uploaded_file, header=None)
-        
-# #         st.success(" CSV uploaded successfully!")
-
-# if data_source == "Upload CSV":
-#     uploaded_file = st.file_uploader(" Upload CSV file", type=["csv"])
-#     if uploaded_file is not None:
-#         df = pd.read_csv(uploaded_file, header=None)
-#         st.success(" CSV uploaded successfully!")
-
-
-# # # SD Card Option 
-# elif data_source == "SD Card":
-#     sd_file = st.file_uploader("   Browse file from SD Card", type=["csv"], key="sd_card_upload")
-#     if sd_file is not None:
-#         df = pd.read_csv(sd_file, header=None)
-#         st.success(" SD card CSV uploaded successfully!")
-
-
-
-
-
-# def find_sd_card_drive():
-#     partitions = psutil.disk_partitions()
-#     for p in partitions:
-#         if 'removable' in p.opts or 'sd' in p.device.lower():
-#             return p.device
-#     return None
-
-# # Then use:
-
-#     # def find_sd_card_drive():
-#     #     partitions = psutil.disk_partitions()
-#     #     for p in partitions:
-#     #         if 'removable' in p.opts or 'sd' in p.device.lower():
-#     #             return p.device
-#     #     return None
-    
-    
-#     elif data_source == "SD Card":
-#     sd_drive = find_sd_card_drive()
-#     if sd_drive:
-#         st.success(f"✅ SD card detected: {sd_drive}")
-#         sd_file = st.file_uploader("📂 Browse CSV file from SD Card", type=["csv"], key="sd_card_upload")
-#         if sd_file is not None:
-#             df = pd.read_csv(sd_file, header=None)
-#             st.success("✅ SD card CSV uploaded successfully!")
-#     else:
-#         st.warning("⚠️ No SD card detected. Please insert an SD card.")
-
-
-#     sd_drive = find_sd_card_drive()
-#     if sd_drive:
-#         st.success(f"SD card detected: {sd_drive}")
-#         sd_file = st.file_uploader("Browse file from SD Card", type=["csv"], key="sd_card_upload")
-#         if sd_file is not None:
-#             df = pd.read_csv(sd_file, header=None)
-#             st.success("SD card CSV uploaded successfully!")
-#     else:
-#         st.warning("⚠️ No SD card detected. Please insert an SD card.")
-
-
-
-
-# # -------------------------------------------
-# # Step 3: Plot Graphs if Data Loaded
-# # -------------------------------------------
-
-# if df is not None:
-#     df.columns = ["Time", "Breath Trend", "SpO2 Info 1", "SpO2 Info 2", "Body Position", "Pulse Info", "Dummy1", "Dummy2", "Dummy3", "Dummy4"]
-
-#     fig = make_subplots(
-#         rows=5, cols=1,
-#         shared_xaxes=True,
-#         subplot_titles=("Breath Trend", "SpO2 Info 1", "SpO2 Info 2", "Body Position", "Pulse Info")
-#     )
-
-#     fig.add_trace(go.Scatter(x=df['Time'], y=df['Breath Trend']), row=1, col=1)
-#     fig.add_trace(go.Scatter(x=df['Time'], y=df['SpO2 Info 1']), row=2, col=1)
-#     fig.add_trace(go.Scatter(x=df['Time'], y=df['SpO2 Info 2']), row=3, col=1)
-#     fig.add_trace(go.Scatter(x=df['Time'], y=df['Body Position']), row=4, col=1)
-#     fig.add_trace(go.Scatter(x=df['Time'], y=df['Pulse Info']), row=5, col=1)
-
-#     fig.update_layout(height=1200, width=800, title_text="Health Report: Combined Graph", showlegend=False)
-#     st.plotly_chart(fig, use_container_width=True)
-
-#     img_bytes = fig.to_image(format="png", engine="kaleido")
-#     st.download_button(" Download Graph Report", data=img_bytes, file_name="health_report.png", mime="image/png")
 
 
 
@@ -409,3 +195,9 @@ if df is not None:
 
     img_bytes = fig.to_image(format="png", engine="kaleido")
     st.download_button(" Download Graph Report", data=img_bytes, file_name="health_report.png", mime="image/png")
+
+
+
+
+
+
