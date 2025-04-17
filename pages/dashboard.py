@@ -153,12 +153,8 @@ if not st.session_state.import_clicked:
 data_source = st.radio("Choose Data Source:", ["Fetch data from server", "Fetch data from SD Card"])
 df = None
 
-server_response = 0
-
 # ---------- Upload CSV ----------
 if data_source == "Fetch data from server":
-    
-    server_response = 1
 
     st.title("Fetch CSV from Remote API")
 
@@ -184,17 +180,16 @@ if data_source == "Fetch data from server":
 
 # ---------- SD Card Upload ----------
 elif data_source == "Fetch data from SD Card":
-    if(server_response == 0):
-        sd_drive = find_sd_card_drive()
+    sd_drive = find_sd_card_drive()
 
-        if sd_drive:
-            st.success(f" SD card detected: {sd_drive}")
-            sd_file = st.file_uploader(" Browse CSV file from SD Card", type=["csv"], key="sd_card_upload")
-            if sd_file is not None:
-                df = pd.read_csv(sd_file, header=None)
-                st.success(" SD card CSV uploaded successfully!")
-        else:
-            st.warning(" No SD card detected. Please insert an SD card.")
+    if sd_drive:
+        st.success(f" SD card detected: {sd_drive}")
+        sd_file = st.file_uploader(" Browse CSV file from SD Card", type=["csv"], key="sd_card_upload")
+        if sd_file is not None:
+            df = pd.read_csv(sd_file, header=None)
+            st.success(" SD card CSV uploaded successfully!")
+    else:
+        st.warning(" No SD card detected. Please insert an SD card.")
 
 # ---------- Step 3: Plot Graphs ----------
 if df is not None:
