@@ -150,22 +150,13 @@ if not st.session_state.import_clicked:
     st.stop()
 
 # ---------- Step 2: Choose Source ----------
-data_source = st.radio("Choose Data Source:", ["Upload CSV", "SD Card"])
+data_source = st.radio("Choose Data Source:", ["Fetch data from server", "Fetch data from SD Card"])
 df = None
 
 
 
 # ---------- Upload CSV ----------
-if data_source == "Upload CSV":
-    uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
-    if uploaded_file is not None:
-        df = pd.read_csv(uploaded_file, header=None)
-        st.success(" CSV uploaded successfully!")
-
-
-# ---------- SD Card Upload ----------
-elif data_source == "SD Card":
-    sd_drive = find_sd_card_drive()
+if data_source == "Fetch data from server":
     
     st.title("Fetch CSV from Remote API")
 
@@ -187,6 +178,11 @@ elif data_source == "SD Card":
 
         except requests.exceptions.RequestException as e:
             st.error(f"Request error: {e}")
+
+
+# ---------- SD Card Upload ----------
+elif data_source == "Fetch data from SD Card":
+    sd_drive = find_sd_card_drive()
     
     if sd_drive:
         st.success(f" SD card detected: {sd_drive}")
