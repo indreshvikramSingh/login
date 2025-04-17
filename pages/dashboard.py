@@ -106,9 +106,9 @@
 
 import streamlit as st
 import pandas as pd
-import os
 from plotly.subplots import make_subplots
 import plotly.graph_objs as go
+import winrm
 import psutil
 
 # ---------- Helper Function ----------
@@ -119,6 +119,15 @@ def find_sd_card_drive():
             return p.device
     return None
 
+def get_remote_disk_info_windows(host, username, password):
+    session = winrm.Session(host, auth=(username, password), transport='ntlm')
+
+    ps_script = 'Get-WmiObject Win32_LogicalDisk | Select-Object DeviceID, MediaType, DriveType'
+    result = session.run_ps(ps_script)
+
+    disk_info = result.std_out.decode().splitlines()
+
+    return disk_info
 
 
 # ---------- Page Setup ----------
@@ -162,10 +171,22 @@ if data_source == "Upload CSV":
         df = pd.read_csv(uploaded_file, header=None)
         st.success(" CSV uploaded successfully!")
 
+
 # ---------- SD Card Upload ----------
 elif data_source == "SD Card":
     sd_drive = find_sd_card_drive()
-    if sd_drive:
+    
+    # Example usage
+    host = 'https://f595kzbv4gnter-md8lqmsh.streamlit.app/'
+    username = 'indreshvikram8'
+    password = 'indresh@123'
+
+    disk_info = get_remote_disk_info_windows(host, username, password)
+    
+    if(disk_info):
+        flag = 1
+    
+    if sd_drive or flag:
         st.success(f" SD card detected: {sd_drive}")
         sd_file = st.file_uploader(" Browse CSV file from SD Card", type=["csv"], key="sd_card_upload")
         if sd_file is not None:
