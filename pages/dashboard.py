@@ -196,16 +196,6 @@ elif data_source == "Fetch data from SD Card":
 
 
 
-# elif data_source == "SD Card":
-#     st.markdown("""
-#      **Please insert your SD card into your system.**
-    
-#     Then manually browse and upload the CSV file from your SD card below.
-#     """)
-#     sd_file = st.file_uploader("Upload CSV file from SD card", type=["csv"], key="sd_card_upload")
-#     if sd_file is not None:
-#         df = pd.read_csv(sd_file, header=None)
-#         st.success("CSV from SD card uploaded successfully!")
 
 
 
