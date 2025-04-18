@@ -111,7 +111,7 @@ import plotly.graph_objs as go
 import requests
 import psutil
 import csv
-# from io import StringIO
+from io import StringIO
 
 st.spinner()
 
@@ -174,14 +174,10 @@ if data_source == "Fetch data from server":
 
                 file_name = file_info.get('file_name')
                 file_path = file_info.get('file_path')
-                print(f"File Name: {file_name}")
-                print(f"File Path: {file_path}")
 
                 file_url = f"{file_path}/{file_name}"
-                print(f"File URL: {file_url}")
 
                 csv_response = requests.get(file_url)
-                print("csv Response", csv_response.text)
 
                 with open(file_name, 'wb') as f:
                     f.write(csv_response.content)
@@ -191,11 +187,11 @@ if data_source == "Fetch data from server":
                     for row in reader:
                         print(row)
 
-                # csv_content = StringIO(csv_response.text)
-                # df = pd.read_csv(csv_content)
+                csv_content = StringIO(csv_response.text)
+                df = pd.read_csv(csv_content)
 
                 st.success("CSV fetched successfully!")
-                # st.dataframe(df)
+                st.dataframe(df)
 
             else:
                 st.error(f"Failed to fetch CSV. Status code: {response.status_code}")
