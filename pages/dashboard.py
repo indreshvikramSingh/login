@@ -42,9 +42,9 @@
 
 #     if os.path.exists(sd_card_path):
 #         df = pd.read_csv(sd_card_path, header=None)
-#         st.success("✅ Data loaded from SD card!")
+#         st.success(" Data loaded from SD card!")
 #     else:
-#         st.error("❌ SD card or file not found!")
+#         st.error(" SD card or file not found!")
 
 # elif data_source == "Upload CSV":
 
@@ -152,12 +152,12 @@ if not st.session_state.import_clicked:
     st.stop()
 
 # ---------- Step 2: Choose Source ----------
-data_source = st.radio("Choose Data Source:", ["Fetch from server", "Fetch from SD Card"])
+data_source = st.radio("Choose Data Source:", ["Fetch data from server", "Fetch data from SD Card"])
 df = None
 
 # ---------- Upload CSV ----------
-if data_source == "Fetch from server":
-    
+if data_source == "Fetch data from server":
+
     st.title("Fetch CSV from Remote API")
 
     api_url = 'https://deckmount.in/api/web/indresh.php?user_id=1'
@@ -203,10 +203,11 @@ if data_source == "Fetch from server":
         except requests.exceptions.RequestException as e:
             st.error(f"Request error: {e}")
 
-# ---------- SD Card Upload ----------
-elif data_source == "Fetch from SD Card":
+
+#---------- SD Card Upload ----------
+elif data_source == "Fetch data from SD Card":
     sd_drive = find_sd_card_drive()
-    
+
     if sd_drive:
         st.success(f" SD card detected: {sd_drive}")
         sd_file = st.file_uploader(" Browse CSV file from SD Card", type=["csv"], key="sd_card_upload")
@@ -215,6 +216,14 @@ elif data_source == "Fetch from SD Card":
             st.success(" SD card CSV uploaded successfully!")
     else:
         st.warning(" No SD card detected. Please insert an SD card.")
+
+
+
+
+
+
+
+
 
 # ---------- Step 3: Plot Graphs ----------
 if df is not None:
