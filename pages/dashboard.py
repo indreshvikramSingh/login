@@ -42,9 +42,9 @@
 
 #     if os.path.exists(sd_card_path):
 #         df = pd.read_csv(sd_card_path, header=None)
-#         st.success("✅ Data loaded from SD card!")
+#         st.success(" Data loaded from SD card!")
 #     else:
-#         st.error("❌ SD card or file not found!")
+#         st.error(" SD card or file not found!")
 
 # elif data_source == "Upload CSV":
 
